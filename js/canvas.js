@@ -27,7 +27,7 @@ SOFTWARE.
 
 // Simulation code
 
-var canvas = document.getElementsByTagName('canvas')[0];
+var canvas = document.querySelector('.title-container canvas');
 resizeCanvas();
 
 var config = {
@@ -398,7 +398,7 @@ var bloomFramebuffers = [];
 var sunrays;
 var sunraysTemp;
 
-var ditheringTexture = createTextureAsync('LDR_LLL1_0.png');
+var ditheringTexture = createTextureAsync('/images/fluid-dither.png');
 
 var blurProgram            = new Program(blurVertexShader, blurShader);
 var copyProgram            = new Program(baseVertexShader, copyShader);
@@ -610,7 +610,15 @@ multipleSplats(parseInt(Math.random() * 20) + 5);
 
 var lastUpdateTime = Date.now();
 var colorUpdateTimer = 0.0;
-update();
+var animationFrame;
+var heroObserver = new IntersectionObserver(function (entries) {
+    cancelAnimationFrame(animationFrame);
+    if (entries[0].isIntersecting) {
+        lastUpdateTime = Date.now();
+        update();
+    }
+});
+heroObserver.observe(canvas);
 
 function update () {
     var dt = calcDeltaTime();
@@ -621,7 +629,7 @@ function update () {
     if (!config.PAUSED)
         { step(dt); }
     render(null);
-    requestAnimationFrame(update);
+    animationFrame = requestAnimationFrame(update);
 }
 
 function calcDeltaTime () {
@@ -934,7 +942,6 @@ window.addEventListener('mouseup', function () {
 });
 
 canvas.addEventListener('touchstart', function (e) {
-    e.preventDefault();
     var touches = e.targetTouches;
     while (touches.length >= pointers.length)
         { pointers.push(new pointerPrototype()); }
@@ -946,7 +953,6 @@ canvas.addEventListener('touchstart', function (e) {
 });
 
 canvas.addEventListener('touchmove', function (e) {
-    e.preventDefault();
     var touches = e.targetTouches;
     for (var i = 0; i < touches.length; i++) {
         var pointer = pointers[i + 1];
