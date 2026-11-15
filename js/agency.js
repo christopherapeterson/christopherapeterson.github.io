@@ -18,6 +18,52 @@ document.addEventListener('click', (event) => {
   if (!event.target.closest('.navbar-wrapper')) setMenu(false);
 });
 
+function installDotCursor() {
+  const mouseAvailable = matchMedia('(any-hover: hover) and (any-pointer: fine) and (forced-colors: none)');
+  const canInvert = CSS.supports('backdrop-filter', 'invert(1)') ||
+    CSS.supports('-webkit-backdrop-filter', 'invert(1)');
+  if (!canInvert || !window.PointerEvent) return;
+
+  const dot = document.createElement('div');
+  dot.className = 'cursor-block';
+  dot.hidden = true;
+  dot.setAttribute('aria-hidden', 'true');
+  document.body.append(dot);
+
+  function hide() {
+    if (dot.hidden) return;
+    dot.hidden = true;
+    document.documentElement.classList.remove('has-dot-cursor');
+  }
+
+  function follow(event) {
+    if (!mouseAvailable.matches || event.pointerType !== 'mouse' || event.target instanceof HTMLIFrameElement) {
+      hide();
+      return;
+    }
+    dot.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`;
+    if (dot.hidden) {
+      dot.hidden = false;
+      document.documentElement.classList.add('has-dot-cursor');
+    }
+  }
+
+  document.addEventListener('pointermove', follow, { passive: true });
+  document.addEventListener('pointerover', follow, { passive: true });
+  document.addEventListener('pointerdown', follow, { passive: true });
+  document.addEventListener('pointerout', (event) => {
+    if (!event.relatedTarget || event.relatedTarget instanceof HTMLIFrameElement) hide();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') hide();
+  });
+  window.addEventListener('blur', hide);
+  window.addEventListener('pagehide', hide);
+  mouseAvailable.addEventListener('change', hide);
+}
+
+installDotCursor();
+
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const hero = document.querySelector('.title-container');
 
