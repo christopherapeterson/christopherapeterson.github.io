@@ -54,6 +54,7 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
 .about-side-div.img { min-width: 0; margin-right: 0; }
 .about-animation {
   display: block;
+  pointer-events: none;
   width: 100%;
   height: auto;
   max-height: 500px;

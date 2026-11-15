@@ -82,7 +82,7 @@ if (aboutAnimation) {
       aboutAnimation.pause();
       return;
     }
-    // Native controls remain available if autoplay requires a gesture.
+    // The poster stays visible if the browser blocks autoplay.
     aboutAnimation.play().catch(() => {});
   }
 
