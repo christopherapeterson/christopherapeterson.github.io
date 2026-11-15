@@ -146,7 +146,7 @@ if (scene && !motion.matches) {
   let loading;
   let visible = false;
   async function loadScene() {
-    const { Application } = await import('https://cdn.jsdelivr.net/npm/@splinetool/runtime@1.10.52/build/runtime.js');
+    const { Application } = await import('https://cdn.jsdelivr.net/npm/@splinetool/runtime@2.0.184/build/runtime.js');
     app = new Application(scene);
     await app.load('/media/contact.splinecode');
     if (!visible) app.stop();

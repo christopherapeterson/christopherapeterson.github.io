@@ -110,8 +110,13 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
 }
 @keyframes service-scroll { to { transform: translateX(var(--word-offset)); } }
 .section-cta-2 .div-block-9 { position: relative; }
-.spline-scene { pointer-events: none; }
-.spline-scene canvas { display: block; width: 100%; height: 100%; }
+/* Let the hand receive pointer movement through the overlaid text. */
+.section-cta-2 .marquee, .section-cta-2 .div-block-9 { pointer-events: none; }
+.section-cta-2 #contact-button { pointer-events: auto; }
+.spline-scene canvas { display: block; width: 100%; height: 100%; touch-action: pan-y pinch-zoom; }
+@media (hover: none) and (pointer: coarse) {
+  .spline-scene canvas { pointer-events: none; }
+}
 .marquee-set { flex: none; animation: marquee-scroll 28s linear infinite; }
 /* Keep each copy on the same pixel grid when the loop wraps. */
 .project-logos { font-size: round(1em, 1px); }
