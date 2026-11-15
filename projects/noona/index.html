@@ -20,7 +20,7 @@
     <script src="/js/agency.js" defer></script>
   </head>
   <body class="body project-page">
-    <div class="page-wrapper">
+    <div class="page-wrapper" id="top">
       <div class="navbar-logo-left">
         <div
           class="navbar-logo-left-container shadow-three w-nav"
@@ -165,27 +165,28 @@
             </div>
           </div>
         </div>
-        <footer class="section-footer">
-          <div class="container-large contact-flex-container">
-            <div class="f50 flexvl">
-              <a class="navbar-brand footer w-nav-brand w--current" href="/"
-                ><div class="footer-logo-text">No Average Agency</div>
-                <img
-                  alt=""
-                  class="footer-logo-image"
-                  loading="lazy"
-                  src="/images/webclip.png"
-                  width="256"
-              /></a>
-            </div>
-            <div class="footer-container-r">
-              <a class="nav-link" href="/#services">Services</a
-              ><a class="nav-link" href="/#work">Projects</a
-              ><a class="nav-link" href="#contact">Contact</a>
-            </div>
-          </div>
-        </footer>
       </main>
+      <footer id="footer" class="agency-footer" aria-label="Agency information">
+        <div class="agency-footer-inner">
+          <div class="agency-footer-main">
+            <a class="agency-footer-brand" href="/" aria-label="No Average Agency home">
+              No Average<br>Agency<img src="/images/webclip.png" alt="" width="256" height="256">
+            </a>
+            <address class="agency-footer-contact">
+              <strong>Chris Peterson</strong>
+              <span>Growth, design &amp; software</span>
+              <a href="mailto:noaverageagency@gmail.com">noaverageagency@gmail.com</a>
+              <a href="https://www.linkedin.com/in/chris-peterson95/">LinkedIn <span aria-hidden="true">↗</span></a>
+            </address>
+          </div>
+          <nav class="agency-footer-nav" aria-label="Footer">
+            <a href="/#services">Services</a>
+            <a href="/#work">Projects</a>
+            <a href="#contact">Contact</a>
+            <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+          </nav>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
