@@ -60,9 +60,52 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
   object-fit: contain;
   background-color: #000;
 }
-.service-link { gap: 1rem; }
-.service-heading { white-space: normal; }
+/* The section already inverts its colors. A second inversion makes the active row light. */
+.service-link, .service-link:hover {
+  gap: 1rem;
+  padding: var(--service-padding, 2em);
+  background: transparent;
+  filter: none;
+  transition: none;
+}
 .service-link img { flex: none; }
+.service-heading {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  white-space: normal;
+}
+.service-name, .service-ticker { transition: opacity 160ms ease; }
+.service-ticker {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: max-content;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+.service-ticker > span { flex: none; padding-inline-end: .45em; }
+.service-link:focus-visible {
+  background: #edeff2;
+  filter: invert(1);
+  outline: 2px solid currentColor;
+  outline-offset: -3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .service-link:hover { background: #edeff2; filter: invert(1); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .service-ticker {
+    animation: service-scroll var(--word-time, 2s) linear infinite paused;
+  }
+  .service-link:hover .service-name { opacity: 0; }
+  .service-link:hover .service-ticker { opacity: 1; animation-play-state: running; }
+}
+@keyframes service-scroll { to { transform: translateX(var(--word-offset)); } }
 .section-cta-2 .div-block-9 { position: relative; }
 .contact-music {
   position: relative;
@@ -83,6 +126,7 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
 @media (min-width: 1620px) { body { font-size: 18px; } }
 
 @media (max-width: 991px) {
+  .service-link { --service-padding: 1.5rem; }
   .navbar-wrapper { position: relative; }
   .menu-button { display: block; background: transparent; border: 0; }
   .navbar-wrapper .nav-menu-wrapper { display: none; }
@@ -106,7 +150,7 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
   .project-card { position: relative; top: auto; margin-bottom: 2.5rem; }
   .project-card .pcard-text { inset: auto; }
   .pcard-bg, .pcard-bg:hover { aspect-ratio: 4/3; }
-  .service-link, .service-link:hover { padding: 1rem 0; }
+  .service-link { --service-padding: 1rem 0; }
   .service-link img { width: 1.65rem; }
   .service-heading { font-size: clamp(1.1rem, 5.2vw, 2rem); }
   .section-service-hero h1, .project-hero-heading-container h1 { overflow-wrap: anywhere; }
