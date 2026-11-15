@@ -37,6 +37,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid currentColor; outline
 .project-list .tags-container { margin-top: .25rem; }
 .about-side-div h2 .h2-heading-large { font-size: inherit; }
 .about-side-div .relative { white-space: nowrap; }
+.about-side-div.img { min-width: 0; margin-right: 0; }
+.about-animation {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  background-color: #000;
+}
 .service-link { gap: 1rem; }
 .service-heading { white-space: normal; }
 .service-link img { flex: none; }
@@ -65,7 +74,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid currentColor; outline
   .project-page .navbar-logo-left:has(.is-open) { filter: none; }
   .project-page .navbar-logo-left:has(.is-open) .navbar-brand,
   .project-page .menu-button[aria-expanded="true"] { filter: invert(1); }
-  .about-side-div.img { width: 100%; }
+  .about-side-div.img { width: 100%; margin-inline: 0; }
 }
 @media (max-width: 767px) {
   .section-hero { height: 100svh; }

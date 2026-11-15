@@ -27,13 +27,25 @@ if (hero && !motion.matches) {
   });
 }
 
-const showreel = document.querySelector('.background-video video');
-if (showreel) {
+const aboutAnimation = document.querySelector('.about-animation');
+if (aboutAnimation) {
+  let inView = false;
+
+  function updatePlayback() {
+    if (!inView || motion.matches) {
+      aboutAnimation.pause();
+      return;
+    }
+    // Native controls remain available if autoplay requires a gesture.
+    aboutAnimation.play().catch(() => {});
+  }
+
   const observer = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting && !motion.matches) showreel.play().catch(() => {});
-    else showreel.pause();
+    inView = entry.isIntersecting;
+    updatePlayback();
   });
-  observer.observe(showreel);
+  observer.observe(aboutAnimation);
+  motion.addEventListener('change', updatePlayback);
 }
 
 const scene = document.querySelector('.spline-scene canvas');
