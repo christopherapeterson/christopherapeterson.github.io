@@ -67,6 +67,52 @@ installDotCursor();
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const hero = document.querySelector('.title-container');
 
+function installHeroZoom(stage) {
+  const section = stage.closest('.section-hero');
+  const bolt = stage.querySelector('.logo-img');
+  let frame = 0;
+  let progress = 0;
+  let target = 0;
+
+  function draw() {
+    frame = 0;
+    // Match the live Webflow interaction's 50% smoothing on each frame.
+    progress = Math.abs(target - progress) < .0001 ? target : (progress + target) / 2;
+    bolt.style.transform = `scale(${1 + 34 * progress})`;
+
+    // The original background changes from #eceff2 to white between 3% and 72%.
+    const tint = Math.min(1, Math.max(0, (progress - .03) / .69));
+    stage.style.backgroundColor = `rgb(${236 + 19 * tint}, ${239 + 16 * tint}, ${242 + 13 * tint})`;
+    if (progress !== target) frame = requestAnimationFrame(draw);
+  }
+
+  function sync() {
+    const bounds = section.getBoundingClientRect();
+    target = Math.min(1, Math.max(0, -bounds.top / bounds.height));
+    if (target !== progress && !frame) frame = requestAnimationFrame(draw);
+  }
+
+  function setMotion() {
+    if (motion.matches) {
+      window.removeEventListener('scroll', sync);
+      window.removeEventListener('resize', sync);
+      cancelAnimationFrame(frame);
+      frame = progress = target = 0;
+      bolt.style.removeProperty('transform');
+      stage.style.removeProperty('background-color');
+      return;
+    }
+    window.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
+
+  setMotion();
+  motion.addEventListener('change', setMotion);
+}
+
+if (hero) installHeroZoom(hero);
+
 if (hero && !motion.matches) {
   import('./canvas.js').then(() => hero.classList.add('is-animated')).catch(() => {
     // The still image is visible on devices without WebGL.

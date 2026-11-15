@@ -197,8 +197,7 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
   .about-side-div.img { width: 100%; margin-inline: 0; }
 }
 @media (max-width: 767px) {
-  .section-hero { height: 100svh; }
-  .title-container { position: relative; height: 100%; }
+  .section-hero .heading-display-large { max-width: none; font-size: 4em; }
   .project-card { position: relative; top: auto; margin-bottom: 2.5rem; }
   .project-card .pcard-text { inset: auto; }
   .pcard-bg, .pcard-bg:hover { aspect-ratio: 4/3; }
@@ -211,6 +210,7 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .section-hero { height: 100svh; }
+  .title-container { position: relative; height: 100%; }
   .project-card { position: relative; top: 0; }
 }
 
