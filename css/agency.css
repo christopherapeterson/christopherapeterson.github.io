@@ -113,6 +113,26 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
 .spline-scene { pointer-events: none; }
 .spline-scene canvas { display: block; width: 100%; height: 100%; }
 .marquee-set { flex: none; animation: marquee-scroll 28s linear infinite; }
+/* Keep each copy on the same pixel grid when the loop wraps. */
+.project-logos { font-size: round(1em, 1px); }
+.project-logos .marquee-set {
+  display: flex;
+  min-width: 100%;
+  animation-duration: 70s;
+}
+.project-logos .marquee-wrap {
+  flex: auto;
+  width: max-content;
+  align-items: center;
+  justify-content: space-around;
+}
+.project-logos .marquee-img {
+  flex: none;
+  aspect-ratio: 576 / 131;
+  object-fit: contain;
+}
+/* The five original logo files have transparent margins baked into the artwork. */
+.project-logos .unpadded-wordmark { padding-inline: 2.4em; }
 .section-cta-2 .marquee-wrap { width: max-content; align-items: center; }
 .marquee-img2 { height: auto; align-self: center; }
 @keyframes marquee-scroll { to { transform: translateX(-100%); } }
@@ -209,6 +229,11 @@ html.has-dot-cursor, html.has-dot-cursor * { cursor: none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .project-logos .marquee-set { width: 100%; animation: none; }
+  .project-logos [aria-hidden="true"], .project-logos .marquee-shadding-left, .project-logos .marquee-shadding-right { display: none; }
+  .project-logos .marquee-wrap { width: 100%; flex-wrap: wrap; justify-content: center; row-gap: 1rem; }
+  .project-logos .marquee-img { width: min(20em, 40%); }
+  .project-logos .unpadded-wordmark { padding-inline: min(2.4em, 4.8%); }
   .section-hero { height: 100svh; }
   .title-container { position: relative; height: 100%; }
   .project-card { position: relative; top: 0; }
